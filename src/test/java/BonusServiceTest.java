@@ -1,63 +1,24 @@
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BonusServiceTest {
+    @ParameterizedTest
+    @CsvFileSource (resources ="/data.csv")
+   // @CsvSource({
+    // "50, 5000, false",
+    //     "150, 5000, true"
+    //})
 
-    @org.junit.jupiter.api.Test
-    void shouldCalculateForRegisteredAndUnderLimit() {
+    public void shouldCalculateForAllCases(long expected, long amount, boolean registered) {
         BonusService service = new BonusService();
+        //long amount;
+        //boolean registered;
+        //long expected = 10;
 
-        // подготавливаем данные:
-        long amount = 1000;
-        boolean registered = true;
-        long expected = 30;
-
-        // вызываем целевой метод:
-        long actual = service.calculate(amount, registered);
-
-        // производим проверку (сравниваем ожидаемый и фактический):
-        assertEquals(expected, actual);
-    }
-
-    @org.junit.jupiter.api.Test
-    void shouldCalculateForRegisteredAndOverLimit() {
-        BonusService service = new BonusService();
-
-        // подготавливаем данные:
-        long amount = 1_000_000;
-        boolean registered = true;
-        long expected = 500;
-
-        // вызываем целевой метод:
-        long actual = service.calculate(amount, registered);
-
-        // производим проверку (сравниваем ожидаемый и фактический):
-        assertEquals(expected, actual);
-    }
-
-    @org.junit.jupiter.api.Test
-    void shouldCalculateForUnRegisteredAndOverLimit() {
-        BonusService service = new BonusService();
-
-        // подготавливаем данные:
-        long amount = 1_000_000;
-        boolean registered = false;
-        long expected = 500;
-
-        // вызываем целевой метод:
-        long actual = service.calculate(amount, registered);
-
-        // производим проверку (сравниваем ожидаемый и фактический):
-        assertEquals(expected, actual);
-    }
-
-    @org.junit.jupiter.api.Test
-    void shouldCalculateForUnRegisteredAndUnderLimit() {
-        BonusService service = new BonusService();
-
-        // подготавливаем данные:
-        long amount = 1_000;
-        boolean registered = false;
-        long expected = 10;
+        //@CsvFileSource(resources = "/data.csv")
 
         // вызываем целевой метод:
         long actual = service.calculate(amount, registered);
